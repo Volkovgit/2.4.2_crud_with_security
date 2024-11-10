@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.model.Role;
 import org.example.model.User;
 
 import java.util.List;
@@ -13,5 +14,7 @@ public interface UserService {
     public void deleteUser(User user);
 
     public void updateUser(int userId, User newUser);
+
+    public List<Role> getUserRoles(User user);
 
 }

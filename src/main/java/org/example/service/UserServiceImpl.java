@@ -1,5 +1,6 @@
 package org.example.service;
 
+import org.example.model.Role;
 import org.example.model.User;
 import org.example.repository.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public void updateUser(int userId, User newUser) {
         userRep.updateUser(userId,newUser);
+    }
+
+    public List<Role> getUserRoles(User user){
+        return userRep.getUserRoles(user);
     }
 }

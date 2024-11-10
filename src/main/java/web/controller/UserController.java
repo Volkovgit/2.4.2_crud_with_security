@@ -22,7 +22,7 @@ public class UserController {
         return "users";
     }
 
-    @GetMapping("/user/delete/{id}")
+    @GetMapping("/admin/user/delete/{id}")
     public String deleteUser(ModelMap model, @PathVariable(required = true) int id) {
         userService.deleteUser(userService.getUserById(id));
         List<User> userList = userService.listUsers();
@@ -30,7 +30,7 @@ public class UserController {
         return "redirect:/";
     }
 
-    @GetMapping("/user/update/{id}")
+    @GetMapping("/admin/user/update/{id}")
     public String editUser(ModelMap model, @PathVariable(required = true) int id) {
         User user = userService.getUserById(id);
         if (user == null) return "redirect:/";
@@ -38,18 +38,18 @@ public class UserController {
         return "userEdit";
     }
 
-    @PostMapping("/user/update/{id}")
+    @PostMapping("/admin/user/update/{id}")
     public String saveUser(@PathVariable(required = true) int id, @Valid @ModelAttribute("user") User userFromRequest) {
         userService.updateUser(id,userFromRequest);
         return "redirect:/";
     }
 
-    @GetMapping("/user/create")
+    @GetMapping("/admin/user/create")
     public String showEditUserPage() {
         return "userAdd";
     }
 
-    @PostMapping("/user/create")
+    @PostMapping("/admin/user/create")
     public String createUser(@Valid @ModelAttribute("user") User userFromRequest) {
         userService.saveUser(userFromRequest);
         return "redirect:/";

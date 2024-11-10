@@ -1,5 +1,6 @@
 package org.example.repository;
 
+import org.example.model.Role;
 import org.example.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,7 @@ public class UserRepImpl implements UserRep {
     }
 
     @Override
+    @Transactional
     public List<User> getAllUsers() throws IllegalArgumentException {
         try {
             String query = "select u from User u order by u.id";
@@ -67,5 +69,21 @@ public class UserRepImpl implements UserRep {
         User userFromDb = getUserById(userId);
         userFromDb.setAge(newUser.getAge());
         userFromDb.setName(newUser.getName());
+    }
+
+    @Override
+    @Transactional
+    public List<Role> getUserRoles(User user) {
+        try {
+            String query = "select u.roles from User u join fetch Role r ON u.id = ?1";
+            TypedQuery<Role> typedQuery = em.createQuery(query, Role.class);
+            typedQuery.setParameter('1',user.getId());
+            System.out.println(typedQuery.getResultList());
+            return null;
+//            return typedQuery.getResultList();
+        } catch (IllegalArgumentException e) {
+            System.out.println("Cant select users from DB");
+            throw e;
+        }
     }
 }

@@ -1,7 +1,9 @@
 package org.example;
 
 import org.example.config.AppConfig;
+import org.example.model.Role;
 import org.example.model.User;
+import org.example.service.RoleService;
 import org.example.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -13,13 +15,24 @@ public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         UserService userRep = context.getBean(UserService.class);
-
-
-//        System.out.println("-- Get all users --");
+        RoleService roleService = context.getBean(RoleService.class);
+        List<Role> roleList = roleService.getRoles();
+        System.out.println(roleList);
+        Role testRole = roleService.getRoleByName("USER");
+        System.out.println(testRole);
+//        Role userRole1 = new Role("TEST1");
+//        User newUser = new User("Tes4444", 55, userRole1);
+//        userRep.saveUser(newUser);
 //        List<User> usersList = userRep.listUsers();
-//        for(User us : usersList){
+//        for (User us : usersList) {
 //            System.out.println(us);
 //        }
+        System.out.println("-- Get all users --");
+        List<User> usersList = userRep.listUsers();
+        for (User us : usersList) {
+            System.out.println(us);
+//            System.out.println(us.getRoles());
+        }
 
 //        System.out.println("-- Get User by id --");
 //        User userFromDb = userRep.getUserById(55);
