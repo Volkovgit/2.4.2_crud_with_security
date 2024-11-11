@@ -18,8 +18,6 @@ public class Main {
         RoleService roleService = context.getBean(RoleService.class);
         List<Role> roleList = roleService.getRoles();
         System.out.println(roleList);
-        Role testRole = roleService.getRoleByName("USER");
-        System.out.println(testRole);
 //        Role userRole1 = new Role("TEST1");
 //        User newUser = new User("Tes4444", 55, userRole1);
 //        userRep.saveUser(newUser);

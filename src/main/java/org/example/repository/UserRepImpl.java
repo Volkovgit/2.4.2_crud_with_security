@@ -71,6 +71,23 @@ public class UserRepImpl implements UserRep {
         userFromDb.setName(newUser.getName());
     }
 
+
+    @Override
+    public User getUserByName(String username){
+        try{
+            String SQL_GET_USER_BY_NAME = "select u from User u where u.name = ?1";
+            TypedQuery<User> typedQuery = em.createQuery(SQL_GET_USER_BY_NAME, User.class);
+            System.out.println(SQL_GET_USER_BY_NAME + " " + username);
+            typedQuery.setParameter(1,username);
+            return typedQuery.getSingleResult();
+        }catch (IllegalArgumentException e) {
+            System.out.println("Cant select users from DB");
+            throw e;
+        }
+
+    }
+
+
     @Override
     @Transactional
     public List<Role> getUserRoles(User user) {

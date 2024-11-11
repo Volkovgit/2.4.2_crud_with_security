@@ -20,11 +20,6 @@ public class Role implements GrantedAuthority {
     @Column
     private String role;
 
-//    @ManyToMany(mappedBy = "roles")
-////    @JoinTable(name = "users_roles",
-////            joinColumns = @JoinColumn(name = "role_id"),
-////            inverseJoinColumns = @JoinColumn(name = "user_id"))
-//    private Set<User> users;
 
     public Role(){};
 
@@ -50,7 +45,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String getAuthority() {
-        return null;
+        return role;
     }
 
     @Override

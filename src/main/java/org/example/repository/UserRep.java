@@ -17,4 +17,6 @@ public interface UserRep {
     public void updateUser(int userId, User newUser);
 
     public List<Role> getUserRoles(User user);
+
+    public User getUserByName(String name);
 }

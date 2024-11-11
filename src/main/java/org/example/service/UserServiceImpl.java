@@ -2,6 +2,7 @@ package org.example.service;
 
 import org.example.model.Role;
 import org.example.model.User;
+import org.example.repository.RoleRep;
 import org.example.repository.UserRep;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRep userRep;
 
+    @Autowired
+    private RoleRep roleRep;
+
     public User getUserById(int userId) {
         return userRep.getUserById(userId);
     }
@@ -25,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
+        Role userRole = roleRep.getRoleByName("ROLE_USER");
+
         userRep.saveUser(user);
     }
 

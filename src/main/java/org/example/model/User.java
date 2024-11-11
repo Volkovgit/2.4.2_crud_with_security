@@ -1,16 +1,15 @@
 package org.example.model;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,8 +20,12 @@ public class User {
     @Column
     private int age;
 
+    @Column
+    private String password;
 
-    @OneToMany(fetch = FetchType.EAGER)
+
+    //todo : Надо попытаться изменить на FetchType.LAZY, но пока что я вообще не понимаю как
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
 
@@ -63,8 +66,47 @@ public class User {
         this.roles = roles;
     }
 
+    public void addRole(Role role){
+        this.roles.add(role);
+    }
+
     @Override
     public String toString() {
-        return "User{id: " + this.id + ", name: " + this.name + ", age: " + this.age + "}";
+        return "User{id: " + this.id + ", name: " + this.name + ", age: " + this.age +", roles:"+this.roles+ "}";
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return this.roles;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.name;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }

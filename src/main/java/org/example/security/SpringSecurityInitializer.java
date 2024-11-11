@@ -1,6 +1,6 @@
-//package org.example.security;
-//
-//import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
-//
-//public class SpringSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
-//}
+package org.example.security;
+
+import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
+
+public class SpringSecurityInitializer extends AbstractSecurityWebApplicationInitializer {
+}
