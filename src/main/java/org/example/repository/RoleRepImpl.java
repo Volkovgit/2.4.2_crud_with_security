@@ -29,7 +29,6 @@ public class RoleRepImpl implements RoleRep{
             TypedQuery<Role> typedQuery = em.createQuery(SQL_GET_ALL_ROLES, Role.class);
             return typedQuery.getResultList();
         } catch (IllegalArgumentException e) {
-            System.out.println("Cant select users from DB");
             throw e;
         }
     }

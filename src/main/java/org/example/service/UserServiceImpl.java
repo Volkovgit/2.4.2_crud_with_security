@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,8 +30,10 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void saveUser(User user) {
-        Role userRole = roleRep.getRoleByName("ROLE_USER");
-
+//        List<Role> userRoles = new ArrayList<Role>();
+//        userRoles.add(roleRep.getRoleByName("ROLE_USER"));
+//        user.setRoles(userRoles);
+        user.addRole(roleRep.getRoleByName("ROLE_USER"));
         userRep.saveUser(user);
     }
 
