@@ -1,15 +1,11 @@
 package org.example.model;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role implements GrantedAuthority {
 
 
@@ -21,9 +17,12 @@ public class Role implements GrantedAuthority {
     private String role;
 
 
-    public Role(){};
+    public Role() {
+    }
 
-    public Role(String role){
+    ;
+
+    public Role(String role) {
         this.role = role;
     }
 
@@ -49,7 +48,7 @@ public class Role implements GrantedAuthority {
     }
 
     @Override
-    public String toString(){
-        return "Role{id:"+this.id+", role:'"+this.role+"'}";
+    public String toString() {
+        return "Role{id:" + this.id + ", role:'" + this.role + "'}";
     }
 }

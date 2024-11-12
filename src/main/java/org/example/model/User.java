@@ -2,10 +2,11 @@ package org.example.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -66,14 +67,14 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public void addRole(Role role){
-        if(this.roles == null) this.roles = new ArrayList<>();
+    public void addRole(Role role) {
+        if (this.roles == null) this.roles = new ArrayList<>();
         this.roles.add(role);
     }
 
     @Override
     public String toString() {
-        return "User{id: " + this.id + ", name: " + this.name + ", age: " + this.age +", roles:"+this.roles+ "}";
+        return "User{id: " + this.id + ", name: " + this.name + ", age: " + this.age + ", roles:" + this.roles + "}";
     }
 
     @Override

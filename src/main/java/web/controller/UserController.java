@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -22,7 +25,6 @@ public class UserController {
         model.addAttribute("user", authUser);
         return "users";
     }
-
 
 
     @GetMapping("/admin")
@@ -51,7 +53,7 @@ public class UserController {
 
     @PostMapping("/admin/user/update/{id}")
     public String saveUser(@PathVariable(required = true) int id, @Valid @ModelAttribute("user") User userFromRequest) {
-        userService.updateUser(id,userFromRequest);
+        userService.updateUser(id, userFromRequest);
         return "redirect:/admin";
     }
 

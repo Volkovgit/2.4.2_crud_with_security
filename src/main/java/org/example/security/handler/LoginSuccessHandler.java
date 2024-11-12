@@ -12,15 +12,16 @@ import java.util.Set;
 
 @Component
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
+    private static String URL_BEGIN = "/2_4_2_crud_with_security_war_exploded";
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_ADMIN")) {
-            httpServletResponse.sendRedirect("/2_4_2_crud_with_security_war_exploded/admin");
+            httpServletResponse.sendRedirect(URL_BEGIN+"/admin");
         } else if(roles.contains("ROLE_USER")){
-            httpServletResponse.sendRedirect("/2_4_2_crud_with_security_war_exploded/user");
+            httpServletResponse.sendRedirect(URL_BEGIN+"/user");
         } else {
-            httpServletResponse.sendRedirect("/2_4_2_crud_with_security_war_exploded/logout");
+            httpServletResponse.sendRedirect(URL_BEGIN+"/logout");
         }
     }
 }
