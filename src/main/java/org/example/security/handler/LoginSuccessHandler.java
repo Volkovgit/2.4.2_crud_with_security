@@ -14,12 +14,13 @@ import java.util.Set;
 public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException {
-//        httpServletResponse.sendRedirect("/2_4_2_crud_with_security_war_exploded/");
         Set<String> roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
         if (roles.contains("ROLE_ADMIN")) {
             httpServletResponse.sendRedirect("/2_4_2_crud_with_security_war_exploded/admin");
+        } else if(roles.contains("ROLE_USER")){
+            httpServletResponse.sendRedirect("/2_4_2_crud_with_security_war_exploded/user");
         } else {
-            httpServletResponse.sendRedirect("/2_4_2_crud_with_security_war_exploded/");
+            httpServletResponse.sendRedirect("/2_4_2_crud_with_security_war_exploded/logout");
         }
     }
 }

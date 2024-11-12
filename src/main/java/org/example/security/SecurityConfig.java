@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -43,10 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // http.csrf().disable(); - попробуйте выяснить сами, что это даёт
         System.out.println(http);
         http.authorizeRequests()
-                .antMatchers("/*").authenticated()
+                .antMatchers("/").authenticated()
                 .antMatchers("/admin/**").access("hasAnyRole('BABABA')")
                 .and().formLogin()  // Spring сам подставит свою логин форму
-                .successHandler(this.successHandler); // подключаем наш SuccessHandler для перенеправления по ролям
+                .successHandler(this.successHandler) // подключаем наш SuccessHandler для перенеправления по ролям
+                .and().logout().permitAll().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+
     }
 
     @Bean

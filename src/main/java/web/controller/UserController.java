@@ -3,6 +3,7 @@ package web.controller;
 import org.example.model.User;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -15,11 +16,20 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/")
-    public String getUser(ModelMap model) {
+    @GetMapping("/user")
+    public String getUser(ModelMap model, Authentication authentication) {
+        User authUser = (User) authentication.getPrincipal();
+        model.addAttribute("user", authUser);
+        return "users";
+    }
+
+
+
+    @GetMapping("/admin")
+    public String getUserByAdmin(ModelMap model) {
         List<User> userList = userService.listUsers();
         model.addAttribute("users", userList);
-        return "users";
+        return "admin";
     }
 
     @GetMapping("/admin/user/delete/{id}")
@@ -27,13 +37,14 @@ public class UserController {
         userService.deleteUser(userService.getUserById(id));
         List<User> userList = userService.listUsers();
         model.addAttribute("users", userList);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin/user/update/{id}")
     public String editUser(ModelMap model, @PathVariable(required = true) int id) {
         User user = userService.getUserById(id);
-        if (user == null) return "redirect:/";
+        System.out.println(user);
+        if (user == null) return "redirect:/admin";
         model.addAttribute("user", user);
         return "userEdit";
     }
@@ -41,7 +52,7 @@ public class UserController {
     @PostMapping("/admin/user/update/{id}")
     public String saveUser(@PathVariable(required = true) int id, @Valid @ModelAttribute("user") User userFromRequest) {
         userService.updateUser(id,userFromRequest);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
     @GetMapping("/admin/user/create")
@@ -51,7 +62,8 @@ public class UserController {
 
     @PostMapping("/admin/user/create")
     public String createUser(@Valid @ModelAttribute("user") User userFromRequest) {
+        System.out.println(userFromRequest);
         userService.saveUser(userFromRequest);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 }

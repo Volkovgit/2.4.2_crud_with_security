@@ -3,7 +3,7 @@ package org.example;
 import org.example.config.AppConfig;
 import org.example.model.Role;
 import org.example.model.User;
-import org.example.service.RoleService;
+//import org.example.service.RoleService;
 import org.example.service.UserService;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -15,9 +15,9 @@ public class Main {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
         UserService userRep = context.getBean(UserService.class);
-        RoleService roleService = context.getBean(RoleService.class);
-        List<Role> roleList = roleService.getRoles();
-        System.out.println(roleList);
+//        RoleService roleService = context.getBean(RoleService.class);
+//        List<Role> roleList = roleService.getRoles();
+//        System.out.println(roleList);
 //        Role userRole1 = new Role("TEST1");
 //        User newUser = new User("Tes4444", 55, userRole1);
 //        userRep.saveUser(newUser);
