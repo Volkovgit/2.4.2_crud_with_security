@@ -12,5 +12,10 @@ CREATE TABLE IF NOT EXISTS public.users
     )
 
 
-insert into roles (id,role) values (2,'USER');
-insert into roles (id,role) values (1,'ADMIN');
+insert into users (id,age,name,password) values
+(1,20,'ADMIN','ADMIN'),(2,33,'USER','USER'),(3,444,'BABABA','BABABA');
+
+insert into roles (id,role) values (1,'ADMIN'),(2,'USER'),(3,'BABABA');
+
+
+insert into users_roles (roles_id,user_id) values (1,1),(2,2),(3,1),(3,3);
